@@ -27,12 +27,13 @@ class ViewController: UIViewController {
         
         if switchOutlet.isOn {
             
-            takePictureWithCameraOrFromPhotoLibrary(photoLibraryOrCamera: .camera, ifResizingImgAddWidthHeight: (20, 20))
+            takePictureWithCameraOrFromPhotoLibrary(photoLibraryOrCamera: .camera)
+            //takePictureWithCameraOrFromPhotoLibrary(photoLibraryOrCamera: .camera, ifResizingImgAddWidthHeight: (800, 600))
             
         } else {
             
-            takePictureWithCameraOrFromPhotoLibrary(photoLibraryOrCamera: .camera)
-
+            takePictureWithCameraOrFromPhotoLibrary(photoLibraryOrCamera: .photoLibrary)
+            //takePictureWithCameraOrFromPhotoLibrary(photoLibraryOrCamera: .photoLibrary, ifResizingImgAddWidthHeight: (800, 600))
         }
     }
     
@@ -84,19 +85,13 @@ extension ViewController: UINavigationControllerDelegate, UIImagePickerControlle
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             
             if necessaryResizing == true {
-                
                 let resizedImg = self.resizeImage(image: image, targetSize: CGSize(width: newWidth, height: newHeigth))
-                
-                
                 mainImgOutlet.image = resizedImg
                 
             } else {
-                
                 mainImgOutlet.image = image
                 
             }
-            
-            
         }
         
         necessaryResizing = false
