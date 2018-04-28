@@ -17,12 +17,10 @@ class ViewController: UIViewController {
     @IBOutlet weak var switchOutlet: UISwitch!
     @IBOutlet weak var mainImgOutlet: UIImageView!
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
 
-    
     @IBAction func goBtnAction(_ sender: UIButton) {
         
         if switchOutlet.isOn {
@@ -37,8 +35,7 @@ class ViewController: UIViewController {
         }
     }
     
-
-}
+}//
 
 extension ViewController: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
@@ -78,8 +75,7 @@ extension ViewController: UINavigationControllerDelegate, UIImagePickerControlle
         
     }
     
-    
-    
+
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
@@ -126,5 +122,4 @@ extension ViewController: UINavigationControllerDelegate, UIImagePickerControlle
         return newImage!
     }
     
-    
-}
+}//
