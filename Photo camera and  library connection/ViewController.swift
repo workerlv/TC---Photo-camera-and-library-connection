@@ -16,9 +16,11 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var switchOutlet: UISwitch!
     @IBOutlet weak var mainImgOutlet: UIImageView!
+    @IBOutlet weak var saveImgOutlet: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        saveImgOutlet.isHidden = true
     }
 
     @IBAction func goBtnAction(_ sender: UIButton) {
@@ -32,6 +34,26 @@ class ViewController: UIViewController {
             
             takePictureWithCameraOrFromPhotoLibrary(photoLibraryOrCamera: .photoLibrary)
             //takePictureWithCameraOrFromPhotoLibrary(photoLibraryOrCamera: .photoLibrary, ifResizingImgAddWidthHeight: (800, 600))
+        }
+    }
+    
+    
+    @IBAction func saveImgAction(_ sender: Any) {
+        
+        UIImageWriteToSavedPhotosAlbum(mainImgOutlet.image!, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+        
+    }
+    
+    @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
+        if let error = error {
+            // we got back an error!
+            let ac = UIAlertController(title: "Save error", message: error.localizedDescription, preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            present(ac, animated: true)
+        } else {
+            let ac = UIAlertController(title: "Saved!", message: "Your altered image has been saved to your photos.", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            present(ac, animated: true)
         }
     }
     
@@ -90,6 +112,7 @@ extension ViewController: UINavigationControllerDelegate, UIImagePickerControlle
             }
         }
         
+        saveImgOutlet.isHidden = false
         necessaryResizing = false
         self.dismiss(animated: true, completion: nil)
     }
